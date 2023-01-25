@@ -1,0 +1,33 @@
+if (rs.status.code != 1) {
+			Serial.println(rs.status.getResponseDescription());
+		} else {
+			Serial.println(typeStr);
+			if (typeStr == "TEMP") {
+				struct MessageTemperaturePartial {
+					char message[8];
+					byte temperature[4];
+				};
+
+				ResponseStructContainer rsc = e22ttl.receiveMessage( sizeof(MessageTemperaturePartial));
+				struct MessageTemperaturePartial message = *(MessageTemperaturePartial*) rsc.data;
+
+				Serial.println(*(float*)(message.temperature));
+				Serial.println(message.message);
+				rsc.close();
+			} else if (typeStr == "HUMI") {
+				struct MessageHumidityPartial {
+					char message[8];
+					byte humidity;
+				};
+
+				ResponseStructContainer rsc = e22ttl.receiveMessage(sizeof(MessageHumidityPartial));
+				struct MessageHumidityPartial message = *(MessageHumidityPartial*) rsc.data;
+
+				Serial.println(message.humidity);
+				Serial.println(message.message);
+				rsc.close();
+			} else {
+				Serial.println("Something goes wrong!!");
+			}
+		}
+	}
