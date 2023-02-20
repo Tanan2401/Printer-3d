@@ -19,7 +19,8 @@ step_pin: PF0
 dir_pin: !PF1
 enable_pin: !PD7
 microsteps: 16
-rotation_distance: 95
+#run_current:1
+rotation_distance: 40
 endstop_pin:^!PE5 #X-Min, PE4:X-Max
 #endstop_pin: PE4
 position_endstop: 0
@@ -34,7 +35,7 @@ step_pin: PF6
 dir_pin: PF7
 enable_pin: !PF2
 microsteps: 16
-rotation_distance: 95
+rotation_distance: 40
 endstop_pin: ^!PJ1  #Y-Min, PJ0:Y-Max
 #endstop_pin: ^PJ0
 position_endstop: -2
@@ -86,16 +87,51 @@ pid_Kd: 948.182
 min_temp: 0
 max_temp: 130
 
+[tmc2208 stepper_x]
+uart_pin: PK1
+interpolate: True
+run_current: 0.6
+hold_current: 0.4
+sense_resistor: 0.110
+stealthchop_threshold: 0
+
+[tmc2208 stepper_y]
+uart_pin: PK2
+interpolate: True
+run_current: 0.6
+hold_current: 0.4
+sense_resistor: 0.110
+stealthchop_threshold: 0
+
+[tmc2208 stepper_z]
+uart_pin: PK4
+interpolate: True
+run_current: 0.4
+hold_current: 0.3
+stealthchop_threshold: 999999
+
+[tmc2208 extruder]
+uart_pin: PK3
+interpolate: True
+run_current: 0.65
+hold_current: 0.4
+sense_resistor: 0.110
+stealthchop_threshold: 999999
+
+[tmc2208 stepper_z]
+uart_pin: PK4
+interpolate: True
+run_current: 0.8
+hold_current: 0.6
+stealthchop_threshold: 999999
+
 [bltouch]
 sensor_pin:^PD3
 control_pin:PB5
-
-
 pin_move_time:0.5
 #pin_up_reports_not_triggered: True
 pin_up_reports_not_triggered:true
 pin_up_touch_mode_reports_triggered: false
-
 x_offset:28
 y_offset:-33
 z_offset :1
@@ -112,8 +148,8 @@ speed: 120
 probe_count: 5, 5
 horizontal_move_z: 5
 algorithm: bicubic
-mesh_min : 30, 50
-mesh_max : 170, 200
+mesh_min : 0, 0
+mesh_max : 300, 300
 mesh_pps: 0
 fade_start: 1
 fade_end: 10
@@ -151,3 +187,44 @@ aliases:
 # See the MKS Lcd Config path file for definitions of common LCD displays.
 ##[include mks_lcd_12864.cfg]"
 # Note, some boards wire: EXP2_8=<RST>, EXP2_10=PG0
+
+#*# <---------------------- SAVE_CONFIG ---------------------->
+#*# DO NOT EDIT THIS BLOCK OR BELOW. The contents are auto-generated.
+#*#
+#*# [bed_mesh default]
+#*# version = 1
+#*# points =
+#*# 	  0.082500, 0.067500, 0.090000, 0.075000, 0.032500
+#*# 	  0.072500, 0.107500, 0.095000, 0.060000, 0.020000
+#*# 	  0.072500, 0.087500, 0.087500, 0.092500, 0.062500
+#*# 	  -0.017500, 0.007500, -0.005000, -0.035000, -0.052500
+#*# 	  0.002500, -0.005000, 0.017500, 0.012500, -0.047500
+#*# tension = 0.2
+#*# min_x = 30.0
+#*# algo = bicubic
+#*# y_count = 5
+#*# mesh_y_pps = 0
+#*# min_y = 49.99
+#*# x_count = 5
+#*# max_y = 200.0
+#*# mesh_x_pps = 0
+#*# max_x = 170.01
+#*#
+#*# [bed_mesh name]
+#*# version = 1
+#*# points =
+#*# 	  0.082500, 0.067500, 0.090000, 0.075000, 0.032500
+#*# 	  0.072500, 0.107500, 0.095000, 0.060000, 0.020000
+#*# 	  0.072500, 0.087500, 0.087500, 0.092500, 0.062500
+#*# 	  -0.017500, 0.007500, -0.005000, -0.035000, -0.052500
+#*# 	  0.002500, -0.005000, 0.017500, 0.012500, -0.047500
+#*# tension = 0.2
+#*# min_x = 30.0
+#*# algo = bicubic
+#*# y_count = 5
+#*# mesh_y_pps = 0
+#*# min_y = 49.99
+#*# x_count = 5
+#*# max_y = 200.0
+#*# mesh_x_pps = 0
+#*# max_x = 170.01
